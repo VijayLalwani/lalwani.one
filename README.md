@@ -23,4 +23,4 @@ DONE:
 
 add favicon
 
-automate deployment to server
+automate deployment to serve
