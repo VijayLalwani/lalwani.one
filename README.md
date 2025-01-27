@@ -22,3 +22,5 @@ automate stats for hosted services
 DONE: 
 
 add favicon
+
+automate deployment to server
