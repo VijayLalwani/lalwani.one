@@ -21,7 +21,7 @@ const NAVIGATION_LINKS: NavLink[] = [
   { href: "/blog", label: "blog" },
   { href: "/photos", label: "photos" },
   {
-    href: "files/resume.pdf",
+    href: "/files/resume.pdf",
     label: "resume",
     external: true,
   },

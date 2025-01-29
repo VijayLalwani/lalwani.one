@@ -1,26 +1,44 @@
-fix memories to be on on same line on desktop with 8 pictures
-fix white mode
-fix book image resolution
-fix image not on top on hover
-fix image rotation on hover
-fix image size on click, make it smaller 
+# Inputs
 
-add memories
-add photos
-add blog content
-add books
-add nice looking hamburger menu
-add same animations on phone as on desktop
-add animations when loading page to show copmponents coming in of existatnce
-add initial animations for work to show colors of hover
-
-automate blog posts
-automate photos to come from a gallery of immich
-automate stats for hosted services
+## UI/UX Improvements
+- Fix theme on system white mode
+- Fix book image  (change the book section entirely)
+- Fix image size on click (make it smaller)
+- When memory image is clicked and dragged, it does not snap back.
+- Memory image set z-index to lower when focus released
+- Memory image should move a bit when dragged across screen
+- Add hamburger menu with modern design
+- Add animations:
+  - Page load transitions
+  - Work component hover colors
+  - Mobile/desktop parity for animations
+- Add Sound transitions for pages
+- Fix dark mode black color
 
 
-DONE: 
+- ~~Fixed image layering on hover~~
+- ~~Resolved image rotation issues~~   
+- ~~Fixed video sound issues across devices~~
+- ~~Added favicon~~
+- ~~Implemented photo gallery~~
 
-add favicon
+## Logic Improvements
+- From blog/photos to resume links is appended instead of absolute
+- resume should serve from /resume
+- Add now listening
 
-automate deployment to server.
+
+## Content Additions
+- Add blog content
+- Add books
+- Chnage Linkein to something more non professional
+- ~~Add memories section~~
+
+## Automation Goals
+- Automated deployment, partial implemented
+- Blog post automation
+- Service statistics tracking
+- Photo gallery integration from Immich
+
+---
+

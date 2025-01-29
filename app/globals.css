@@ -32,7 +32,7 @@
 
     --radius: 0.5rem;
 
-    --evuam-50: rgba(0, 0, 0, 0.05);
+    --evuam-50: rgba(0, 0, 0, 0.5);
     --evuam-100: #1c1c1f;
     --mauve-100: rgb(28, 28, 31);
   }
@@ -69,7 +69,8 @@
   }
 
   .dark {
-    --background: 0 0% 0% / 50%;
+    --background: 0 0% 0% / 50%; /* hsl format for Tailwind compatibility */
+    --bg-dark: rgba(0, 0, 0, 0.5); /* explicit rgba fallback */
     --foreground: 210 40% 98%;
 
     --card: 222.2 84% 4.9%;
@@ -158,4 +159,124 @@
   backface-visibility: hidden;
   perspective: 1000;
   will-change: opacity;
+}
+
+/* Evuam Color Scheme */
+.bg-evuam-50 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(237 237 239 / var(--tw-bg-opacity));
+}
+
+.text-evuam-1100 {
+  --tw-text-opacity: 1;
+  color: rgb(22 22 24 / var(--tw-text-opacity));
+}
+
+.text-evuam-1100\/80 {
+  color: rgba(22, 22, 24, 0.8);
+}
+
+.dark\:text-evuam-50 {
+  --tw-text-opacity: 1;
+  color: rgb(237 237 239 / var(--tw-text-opacity));
+}
+
+.dark\:text-evuam-50\/90 {
+  color: hsla(240, 6%, 93%, 0.9);
+}
+
+.dark\:text-evuam-100 {
+  --tw-text-opacity: 1;
+  color: rgb(160 159 166 / var(--tw-text-opacity));
+}
+
+/* Mauve Color Scheme */
+.text-mauve-100 {
+  --tw-text-opacity: 1;
+  color: rgb(28 28 31 / var(--tw-text-opacity));
+}
+
+.text-mauve-50 {
+  --tw-text-opacity: 1;
+  color: rgb(22 22 24 / var(--tw-text-opacity));
+}
+
+.text-mauve-50\/90 {
+  color: rgba(22, 22, 24, 0.9);
+}
+
+.dark\:text-mauve-1100 {
+  --tw-text-opacity: 1;
+  color: rgb(237 237 239 / var(--tw-text-opacity));
+}
+
+.dark\:text-mauve-1100\/80 {
+  color: hsla(240, 6%, 93%, 0.8);
+}
+
+/* For system preference dark mode */
+@media (prefers-color-scheme: dark) {
+  h3 {
+    color: var(--color-dark);
+  }
+}
+
+/* For class-based dark mode */
+.dark h3 {
+  color: var(--color-dark);
+}
+
+/* For system preference dark mode */
+@media (prefers-color-scheme: dark) {
+  p {
+    color: var(--color-dark);
+  }
+}
+
+/* For class-based dark mode */
+.dark p {
+  color: var(--color-dark);
+}
+
+/* For system preference dark mode */
+@media (prefers-color-scheme: dark) {
+  h5, p {
+    color: var(--color-dark);
+  }
+}
+
+/* For class-based dark mode */
+.dark h5,
+.dark p {
+  color: var(--color-dark);
+}
+
+/* System dark mode */
+@media (prefers-color-scheme: dark) {
+  h1, a {
+    color: var(--color-dark);
+  }
+}
+
+/* Class-based dark mode */
+.dark h1,
+.dark a {
+  color: var(--color-dark);
+}
+
+/* LinkedIn hover state */
+.dark a:hover {
+  color: white 
+}
+
+/* System dark mode */
+@media (prefers-color-scheme: dark) {
+  div {
+    background: var(--bg-dark) 
+  }
+}
+
+/* Class-based dark mode */
+.dark div {
+  background: var(--bg-background) 
 }
