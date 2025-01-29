@@ -1,9 +1,7 @@
-# Inputs
+# Todo
 
 ## UI/UX Improvements
 - Fix theme on system white mode
-- Fix book image  (change the book section entirely)
-- Fix image size on click (make it smaller)
 - When memory image is clicked and dragged, it does not snap back.
 - Memory image set z-index to lower when focus released
 - Memory image should move a bit when dragged across screen
@@ -15,12 +13,13 @@
 - Add Sound transitions for pages
 - Fix dark mode black color
 
-
+- ~~Fix book image  (change the book section entirely)~~
 - ~~Fixed image layering on hover~~
 - ~~Resolved image rotation issues~~   
 - ~~Fixed video sound issues across devices~~
 - ~~Added favicon~~
 - ~~Implemented photo gallery~~
+- ~~Fixed image size on click (make it smaller)~~
 
 ## Logic Improvements
 - From blog/photos to resume links is appended instead of absolute
