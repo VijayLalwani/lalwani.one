@@ -2,123 +2,21 @@
 
 @layer base {
   :root {
-    --background: 237 237 239;
-    --foreground: 222.2 84% 4.9%;
-
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
-
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
-
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
-
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
-
     --radius: 0.5rem;
-
-    --evuam-50: rgba(0, 0, 0, 0.5);
-    --evuam-100: #1c1c1f;
-    --mauve-100: rgb(28, 28, 31);
-  }
-
-  /* Background color utility */
-  .bg-evuam-50 {
-    --tw-bg-opacity: 1;
-    background-color: var(--evuam-50);
-  }
-
-  /* Text color utility for light mode */
-  .text-mauve-100 {
-    --tw-text-opacity: 1;
-    color: var(--mauve-100) / var(--tw-text-opacity);
-  }
-
-  /* Dark mode text colors */
-  :is(.dark .dark\:text-evuam-100) {
-    --tw-text-opacity: 1;
-    color: var(--evuam-100) / var(--tw-text-opacity);
-  }
-
-  :is(.dark .dark\:text-evuam-50\/90) {
-    color: hsla(240, 6%, 93%, 0.9);
-  }
-
-  /* Hover utility for light mode (optional if hover is needed) */
-  .text-mauve-100:hover {
-    color: #1da1f2;
-  }
-
-  .dark .dark\:text-evuam-50\/90:hover {
-    color: hsla(240, 6%, 93%, 1); /* Slightly brighter on hover */
   }
 
   .dark {
-    --background: 0 0% 0% / 50%; /* hsl format for Tailwind compatibility */
-    --bg-dark: rgba(0, 0, 0, 0.5); /* explicit rgba fallback */
-    --foreground: 210 40% 98%;
-
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
+    --tw-bg-opacity: 1;
+    --tw-text-opacity: 1;
   }
-}
-
-.transition-colors {
-  transition-property: background-color, border-color, color, fill, stroke;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: 300ms;
-}
-
-@font-face {
-  font-family: "Departure Mono";
-  src: url("/fonts/DepartureMono-Regular.woff2") format("woff2");
-  font-weight: normal;
-  font-style: normal;
 }
 
 @layer utilities {
-  .perspective {
+  .perspective-1000 {
     perspective: 1000px;
   }
 
-  .preserve-3d {
+  .transform-style-3d {
     transform-style: preserve-3d;
   }
 
@@ -126,17 +24,9 @@
     backface-visibility: hidden;
   }
 
-  .writing-mode-vertical-rl {
-    writing-mode: vertical-rl;
+  .touch-manipulation {
+    touch-action: manipulation;
   }
-  .isolate { isolation: isolate; }
-  .perspective-1000 { perspective: 1000px; }
-  .transform-style-3d { transform-style: preserve-3d; }
-  .backface-hidden { backface-visibility: hidden; }
-  .rotate-y-0 { transform: rotateY(0deg); }
-  .rotate-y-90 { transform: rotateY(90deg); }
-  .translate-z-20 { transform: translateZ(20px); }
-  .touch-manipulation { touch-action: manipulation; }
 }
 
 @keyframes photoBlurIn {
@@ -152,131 +42,4 @@
 
 .animate-photo-blur {
   animation: photoBlurIn 6s cubic-bezier(.16,1,.3,1);
-}
-
-.transform-gpu {
-  transform: translateZ(0);
-  backface-visibility: hidden;
-  perspective: 1000;
-  will-change: opacity;
-}
-
-/* Evuam Color Scheme */
-.bg-evuam-50 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(237 237 239 / var(--tw-bg-opacity));
-}
-
-.text-evuam-1100 {
-  --tw-text-opacity: 1;
-  color: rgb(22 22 24 / var(--tw-text-opacity));
-}
-
-.text-evuam-1100\/80 {
-  color: rgba(22, 22, 24, 0.8);
-}
-
-.dark\:text-evuam-50 {
-  --tw-text-opacity: 1;
-  color: rgb(237 237 239 / var(--tw-text-opacity));
-}
-
-.dark\:text-evuam-50\/90 {
-  color: hsla(240, 6%, 93%, 0.9);
-}
-
-.dark\:text-evuam-100 {
-  --tw-text-opacity: 1;
-  color: rgb(160 159 166 / var(--tw-text-opacity));
-}
-
-/* Mauve Color Scheme */
-.text-mauve-100 {
-  --tw-text-opacity: 1;
-  color: rgb(28 28 31 / var(--tw-text-opacity));
-}
-
-.text-mauve-50 {
-  --tw-text-opacity: 1;
-  color: rgb(22 22 24 / var(--tw-text-opacity));
-}
-
-.text-mauve-50\/90 {
-  color: rgba(22, 22, 24, 0.9);
-}
-
-.dark\:text-mauve-1100 {
-  --tw-text-opacity: 1;
-  color: rgb(237 237 239 / var(--tw-text-opacity));
-}
-
-.dark\:text-mauve-1100\/80 {
-  color: hsla(240, 6%, 93%, 0.8);
-}
-
-/* For system preference dark mode */
-@media (prefers-color-scheme: dark) {
-  h3 {
-    color: var(--color-dark);
-  }
-}
-
-/* For class-based dark mode */
-.dark h3 {
-  color: var(--color-dark);
-}
-
-/* For system preference dark mode */
-@media (prefers-color-scheme: dark) {
-  p {
-    color: var(--color-dark);
-  }
-}
-
-/* For class-based dark mode */
-.dark p {
-  color: var(--color-dark);
-}
-
-/* For system preference dark mode */
-@media (prefers-color-scheme: dark) {
-  h5, p {
-    color: var(--color-dark);
-  }
-}
-
-/* For class-based dark mode */
-.dark h5,
-.dark p {
-  color: var(--color-dark);
-}
-
-/* System dark mode */
-@media (prefers-color-scheme: dark) {
-  h1, a {
-    color: var(--color-dark);
-  }
-}
-
-/* Class-based dark mode */
-.dark h1,
-.dark a {
-  color: var(--color-dark);
-}
-
-/* LinkedIn hover state */
-.dark a:hover {
-  color: white 
-}
-
-/* System dark mode */
-@media (prefers-color-scheme: dark) {
-  div {
-    background: var(--bg-dark) 
-  }
-}
-
-/* Class-based dark mode */
-.dark div {
-  background: var(--bg-background) 
 }

@@ -87,7 +87,7 @@ export function HostedServices() {
 
   return (
     <section className="flex flex-col gap-2">
-      <h3 className="text-lg font-semibold text-mauve-50 dark:text-evuam-50">
+      <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
         hosted services
       </h3>
       <div className="-ml-1 grid grid-flow-row gap-2 md:grid-cols-2">
@@ -95,7 +95,7 @@ export function HostedServices() {
           <a
             key={service.name}
             href={service.href}
-            className="relative z-10 mx-auto w-[80vw] cursor-pointer rounded-[10px] border-[1px] border-solid px-[1rem] py-[1rem] transition-shadow hover:shadow-sm md:w-full"
+            className="relative z-10 mx-auto w-[80vw] cursor-pointer rounded-lg border border-gray-200 dark:border-gray-800 px-4 py-4 transition-shadow hover:shadow-md md:w-full"
             style={{
               backgroundColor: service.background,
               border: service.border,
@@ -104,8 +104,9 @@ export function HostedServices() {
             onMouseMove={handleMouseMove}
             onMouseLeave={handleMouseLeave}
           >
+            {/* Gradient Hover Effect */}
             <div
-              className="absolute inset-[-0.5px] z-auto rounded-[10px] transition-opacity duration-300 gradient"
+              className="absolute inset-[-0.5px] z-auto rounded-lg transition-opacity duration-300 gradient"
               style={{
                 background: `radial-gradient(600px circle at var(--x, 50%) var(--y, 50%), ${service.color}2a, transparent 40%)`,
                 opacity: 0,
@@ -117,13 +118,13 @@ export function HostedServices() {
                 alt={service.name}
                 width={25}
                 height={25}
-                className="z-auto rounded-[50%] shadow-lg"
+                className="z-auto rounded-full shadow-lg"
               />
               <div className="z-auto flex justify-between">
-                <h4 className="text-[20px] font-bold">{service.name}</h4>
+                <h4 className="text-lg font-bold">{service.name}</h4>
               </div>
             </div>
-            <p className="z-auto">{service.description}</p>
+            <p className="z-auto text-gray-700 dark:text-gray-300">{service.description}</p>
             <p
               className="mt-2 font-mono text-sm"
               style={{
@@ -138,5 +139,5 @@ export function HostedServices() {
         ))}
       </div>
     </section>
-  );  
+  );
 }

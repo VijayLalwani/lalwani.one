@@ -7,7 +7,7 @@ import { About } from "@/components/about";
 
 export default function Home() {
   return (
-    <div className="grid grid-flow-row gap-10 text-pretty">
+    <div className="grid grid-flow-row gap-6 md:gap-10 text-pretty">
       <About />
       <HostedServices />
       <Memories />

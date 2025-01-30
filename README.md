@@ -5,14 +5,14 @@
 - When memory image is clicked and dragged, it does not snap back.
 - Memory image set z-index to lower when focus released
 - Memory image should move a bit when dragged across screen
-- Add hamburger menu with modern design
 - Add animations:
   - Page load transitions
   - Work component hover colors
   - Mobile/desktop parity for animations
 - Add Sound transitions for pages
-- Fix dark mode black color
 
+- ~~Fix dark mode black color~~
+- ~~Add hamburger menu with modern design~~
 - ~~Fix book image  (change the book section entirely)~~
 - ~~Fixed image layering on hover~~
 - ~~Resolved image rotation issues~~   
@@ -25,6 +25,7 @@
 - From blog/photos to resume links is appended instead of absolute
 - resume should serve from /resume
 - Add now listening
+- improve image loading for slow connections
 
 
 ## Content Additions

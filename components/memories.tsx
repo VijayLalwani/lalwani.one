@@ -42,53 +42,55 @@ const MEDIA_ITEMS = [
 ] as const; // Make readonly for security
 
 // Memoized media item component
-const MediaItem = memo(({ 
-  item, 
-  onPlay, 
-  onPause,
-  isSoundEnabled
-}: { 
-  item: (typeof MEDIA_ITEMS)[number],
-  onPlay?: (e: React.SyntheticEvent<HTMLVideoElement>) => void,
-  onPause?: (e: React.SyntheticEvent<HTMLVideoElement>) => void,
-  isSoundEnabled: boolean
-}) => {
-  const [isDesktop, setIsDesktop] = useState(false);
+const MediaItem = memo(
+  ({
+    item,
+    onPlay,
+    onPause,
+    isSoundEnabled,
+  }: {
+    item: (typeof MEDIA_ITEMS)[number];
+    onPlay?: (e: React.SyntheticEvent<HTMLVideoElement>) => void;
+    onPause?: (e: React.SyntheticEvent<HTMLVideoElement>) => void;
+    isSoundEnabled: boolean;
+  }) => {
+    const [isDesktop, setIsDesktop] = useState(false);
 
-  useEffect(() => {
-    setIsDesktop(window.matchMedia('(pointer: fine)').matches);
-  }, []);
+    useEffect(() => {
+      setIsDesktop(window.matchMedia("(pointer: fine)").matches);
+    }, []);
 
-  if (item.type === "video") {
+    if (item.type === "video") {
+      return (
+        <video
+          src={item.src}
+          playsInline
+          loop
+          muted={!isDesktop && !isSoundEnabled}
+          className="w-full h-full object-cover transition-transform duration-300 ease-out hover:scale-110 [&::-webkit-media-controls-panel]:hidden"
+          onMouseEnter={onPlay}
+          onMouseLeave={onPause}
+          onTouchStart={onPlay}
+          onTouchEnd={onPause}
+          onTouchCancel={onPause}
+        />
+      );
+    }
+
     return (
-      <video
+      <Image
         src={item.src}
-        playsInline
-        loop
-        muted={!isDesktop && !isSoundEnabled}
-        className="w-full h-full object-cover transition-transform duration-300 ease-out hover:scale-110 [&::-webkit-media-controls-panel]:hidden"
-        onMouseEnter={onPlay}
-        onMouseLeave={onPause}
-        onTouchStart={onPlay}
-        onTouchEnd={onPause}
-        onTouchCancel={onPause}
+        alt={item.alt}
+        width={112} // 28 * 4
+        height={112}
+        className="w-full h-full object-cover transition-transform duration-300 ease-out hover:scale-110"
+        loading="lazy"
+        quality={75}
       />
     );
   }
-  
-  return (
-    <Image
-      src={item.src}
-      alt={item.alt}
-      width={112} // 28 * 4
-      height={112}
-      className="w-full h-full object-cover transition-transform duration-300 ease-out hover:scale-110"
-      loading="lazy"
-      quality={75}
-    />
-  );
-});
-MediaItem.displayName = 'MediaItem';
+);
+MediaItem.displayName = "MediaItem";
 
 export function Memories() {
   const [isSoundEnabled, setIsSoundEnabled] = useState(false);
@@ -96,35 +98,41 @@ export function Memories() {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
   const getScaleValue = useCallback(() => {
-    if (typeof window === 'undefined') return 2;
+    if (typeof window === "undefined") return 2;
     return window.innerWidth >= 640 ? 2.5 : 2;
   }, []);
 
   // Unified mouse/touch handlers
   const handlePressStart = useCallback((i: number) => {
     setActiveIndex(i);
-    document.documentElement.style.overflow = 'hidden'; // Prevent scroll
+    document.documentElement.style.overflow = "hidden"; // Prevent scroll
   }, []);
 
   const handlePressEnd = useCallback(() => {
     setActiveIndex(null);
-    document.documentElement.style.overflow = ''; // Restore scroll
+    document.documentElement.style.overflow = ""; // Restore scroll
   }, []);
 
   // Memoize video handlers
-  const handleVideoPlay = useCallback((e: React.SyntheticEvent<HTMLVideoElement>) => {
-    e.currentTarget.play();
-  }, []);
+  const handleVideoPlay = useCallback(
+    (e: React.SyntheticEvent<HTMLVideoElement>) => {
+      e.currentTarget.play();
+    },
+    []
+  );
 
-  const handleVideoPause = useCallback((e: React.SyntheticEvent<HTMLVideoElement>) => {
-    e.currentTarget.pause();
-    e.currentTarget.currentTime = 0;
-  }, []);
+  const handleVideoPause = useCallback(
+    (e: React.SyntheticEvent<HTMLVideoElement>) => {
+      e.currentTarget.pause();
+      e.currentTarget.currentTime = 0;
+    },
+    []
+  );
 
   return (
     <section className="flex flex-col gap-1 relative places-gallery">
       <div className="flex justify-between items-center">
-        <h3 className="text-lg font-semibold text-mauve-50 dark:text-evuam-50">
+        <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
           memories
         </h3>
         {/* Mobile-only sound toggle */}
@@ -134,17 +142,25 @@ export function Memories() {
           aria-label={isSoundEnabled ? "Mute sound" : "Unmute sound"}
         >
           {isSoundEnabled ? (
-            <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77zm-4 0L8 4.65l-3-3L3.27 3.5 5.73 6 3 8.73l1.27 1.27L7 7.27l3 3V3.23z"/>
+            <svg
+              className="w-5 h-5 text-white"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path d="M14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77zm-4 0L8 4.65l-3-3L3.27 3.5 5.73 6 3 8.73l1.27 1.27L7 7.27l3 3V3.23z" />
             </svg>
           ) : (
-            <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/>
+            <svg
+              className="w-5 h-5 text-white"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z" />
             </svg>
           )}
         </button>
       </div>
-      <p className="text-lg leading-snug text-mauve-50/90 dark:text-evuam-50/90">
+      <p className="text-lg leading-snug text-gray-700 dark:text-gray-300">
         Life&apos;s too short for bad lighting… or bad vibes.
       </p>
       <div className="relative">
@@ -168,28 +184,40 @@ export function Memories() {
                 onMouseUp={handlePressEnd}
                 style={{
                   transform: `
-                    rotate(${(activeIndex === i || hoveredIndex === i) ? 0 : rotationAngle}deg)
-                    scale(${activeIndex === i ? scaleValue : hoveredIndex === i ? 1.25 : 1})
+                    rotate(${
+                      activeIndex === i || hoveredIndex === i
+                        ? 0
+                        : rotationAngle
+                    }deg)
+                    scale(${
+                      activeIndex === i
+                        ? scaleValue
+                        : hoveredIndex === i
+                        ? 1.25
+                        : 1
+                    })
                   `,
-                  transition: activeIndex === i 
-                    ? 'transform 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28)' 
-                    : 'transform 0.3s ease-out',
-                  zIndex: (activeIndex === i || hoveredIndex === i) ? 999999 : 'auto',
-                  overflow: 'visible',
-                  touchAction: 'manipulation',
-                  userSelect: 'none',
-                  WebkitUserSelect: 'none'
+                  transition:
+                    activeIndex === i
+                      ? "transform 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28)"
+                      : "transform 0.3s ease-out",
+                  zIndex:
+                    activeIndex === i || hoveredIndex === i ? 999999 : "auto",
+                  overflow: "visible",
+                  touchAction: "manipulation",
+                  userSelect: "none",
+                  WebkitUserSelect: "none",
                 }}
               >
-                <div 
+                <div
                   className="h-32 w-32 rounded-lg border-[3px] border-white shadow-md transform-gpu overflow-hidden"
                   style={{
-                    transform: 'none',
-                    transformOrigin: 'center center',
-                    willChange: 'transform'
+                    transform: "none",
+                    transformOrigin: "center center",
+                    willChange: "transform",
                   }}
                 >
-                  <MediaItem 
+                  <MediaItem
                     item={item}
                     onPlay={handleVideoPlay}
                     onPause={handleVideoPause}

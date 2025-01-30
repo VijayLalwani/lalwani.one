@@ -26,8 +26,8 @@ const books: Book[] = [
     id: 2,
     title: "The Grand Design",
     author: "Stephen Hawking",
-    spineColor: "rgb( 14, 24, 30)",
-    textColor: "rgb(242, 242, 242)",
+    spineColor: "rgb(14,24,30)",
+    textColor: "rgb(242,242,242)",
     coverUrl: "/images/books/grand-design.jpg",
   },
   {
@@ -86,39 +86,29 @@ export function Bookshelf() {
   return (
     <section className="space-y-4">
       <div className="flex flex-col gap-1">
-        <h3 className="text-lg font-semibold text-mauve-50 dark:text-evuam-50">
+        <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
           bookshelf
         </h3>
-        <p className="text-lg leading-snug text-mauve-50/90 dark:text-evuam-50/90">
+        <p className="text-lg leading-snug text-gray-700 dark:text-gray-300">
           The books that once had me completely hooked.
         </p>
       </div>
       <div className="not-prose">
         <div className="max-w-4xl mx-auto overflow-visible">
           <div role="list" className="flex justify-center w-full">
-            <div
-              className="flex flex-wrap justify-center"
-              style={{
-                width: "100%",
-                maxWidth: "100%", // Ensures full width usage
-                gap: "0.5rem", // Small gap between books
-              }}
-            >
+            <div className="flex flex-wrap justify-center gap-2">
               {books.map((book, index) => (
                 <motion.button
                   key={book.id}
                   role="listitem"
                   className={`
-                  flex flex-row items-center outline-none 
-                  transition-all duration-300 ease-in-out focus-visible:-translate-y-2
-                  ${index === 0 ? "" : "-ml-14 sm:-ml-16 md:-ml-20 lg:-ml-24"}
-                `}
+                    flex flex-row items-center outline-none transition-all duration-300 ease-in-out 
+                    focus-visible:-translate-y-2 ${index === 0 ? "" : "-ml-12 sm:-ml-16 md:-ml-24 lg:-ml-30"}
+                  `}
                   style={{
                     perspective: "1000px",
                     WebkitPerspective: "1000px",
                     zIndex: hoveredBook === book.id ? 40 : index + 1,
-                    maxWidth: "90vw", // Prevents overflow beyond 90% of screen
-                    flexShrink: 0, // Prevents weird flex shrinking
                   }}
                   onMouseEnter={() => setHoveredBook(book.id)}
                   onMouseLeave={() => setHoveredBook(null)}
@@ -139,41 +129,57 @@ export function Bookshelf() {
                       : {}
                   }
                 >
-                  {/* Spine */}
-                  <div
-                    className="z-50 h-32 sm:h-40 md:h-48 lg:h-56 w-[20px] sm:w-[24px] md:w-[28px] lg:w-[32px] shrink-0 origin-right py-2 brightness-[0.95]"
-                    style={{
-                      backgroundColor: book.spineColor,
-                      color: book.textColor,
-                      transformStyle: "preserve-3d",
-                      transform: "rotateY(-60deg) translateZ(0px)",
-                    }}
-                  >
-                    <h2
-                      className="text-xs sm:text-sm md:text-md m-auto font-bold"
-                      style={{ writingMode: "vertical-lr" }}
-                    >
-                      {book.title}
-                    </h2>
-                  </div>
+{/* Spine */}
+<div
+  className="z-50 h-32 sm:h-40 md:h-48 lg:h-56 w-[20px] sm:w-[24px] md:w-[28px] lg:w-[32px] shrink-0 origin-right py-2 brightness-[0.95] relative"
+  style={{
+    backgroundColor: book.spineColor,
+    color: book.textColor,
+    transformStyle: "preserve-3d",
+    transform: "rotateY(-60deg) translateZ(0px)",
+  }}
+>
+  {/* Shadow and reflection effects on the spine */}
+  <span
+    aria-hidden="true"
+    className="absolute inset-0 bg-gradient-to-r from-black/30 via-transparent to-black/10"
+  />
+  <h2
+    className="text-xs sm:text-sm md:text-md m-auto font-bold"
+    style={{ writingMode: "vertical-lr" }}
+  >
+    {book.title}
+  </h2>
+</div>
 
-                  {/* Cover */}
-                  <div
-                    className="relative z-10 h-32 sm:h-40 md:h-48 lg:h-56 shrink-0 origin-left overflow-hidden border-gray-900 brightness-[0.95]"
-                    style={{
-                      transformStyle: "preserve-3d",
-                      transform: "rotateY(10deg) translateZ(0px)",
-                    }}
-                  >
-                    <Image
-                      alt={book.title}
-                      src={book.coverUrl || "/placeholder.svg"}
-                      width={384}
-                      height={576}
-                      className="h-full w-[88px] sm:w-[105px] md:w-[122px] lg:w-[140px] bg-cover"
-                      priority={book.id === 1}
-                    />
-                  </div>
+{/* Cover */}
+<div
+  className="relative z-10 h-32 sm:h-40 md:h-48 lg:h-56 shrink-0 origin-left overflow-hidden border-gray-900 brightness-[0.95]"
+  style={{
+    transformStyle: "preserve-3d",
+    transform: "rotateY(10deg) translateZ(0px)",
+  }}
+>
+  {/* Gradient highlight to create realistic transition between spine and cover */}
+  <span
+    aria-hidden="true"
+    className="absolute left-0 top-0 z-50 h-full w-full"
+    style={{
+      background:
+        "linear-gradient(to right, rgba(255, 255, 255, 0) 2px, rgba(255, 255, 255, 0.5) 3px, rgba(255, 255, 255, 0.25) 4px, rgba(255, 255, 255, 0.25) 6px, transparent 7px, transparent 9px, rgba(255, 255, 255, 0.25) 9px, transparent 12px)",
+    }}
+  />
+  
+  <Image
+    alt={book.title}
+    src={book.coverUrl || "/placeholder.svg"}
+    width={384}
+    height={576}
+    className="h-full w-[97px] sm:w-[116px] md:w-[135px] lg:w-[154px] bg-cover"
+    priority={book.id === 1}
+  />
+</div>
+
                 </motion.button>
               ))}
             </div>
