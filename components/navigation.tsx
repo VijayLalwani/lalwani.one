@@ -18,11 +18,6 @@ const NAVIGATION_LINKS: NavLink[] = [
   { href: "/", label: "home" },
   { href: "/blog", label: "blog" },
   { href: "/photos", label: "photos" },
-  {
-    href: "/files/resume.pdf",
-    label: "resume",
-    external: true,
-  },
 ] as const;
 
 export function Navigation() {
