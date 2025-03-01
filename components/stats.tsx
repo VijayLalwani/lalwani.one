@@ -45,7 +45,7 @@ export function Stats() {
     <div
       className={`flex select-none flex-col gap-1 ${departureMono.className}`}
     >
-      <h3 className="text-sm font-semibold text-gray-900 dark:text-gray-100">
+      <h3 className="text-sm font-semibold">
         ░ STATS
       </h3>
 

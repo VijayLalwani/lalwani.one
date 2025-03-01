@@ -71,10 +71,10 @@ export const TopSongs = React.memo(function TopSongs() {
 
   return (
     <section className="flex flex-col gap-1">
-      <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
+      <h3 className="text-lg font-semibold">
         top songs
       </h3>
-      <p className="text-lg leading-snug text-gray-700 dark:text-gray-300">
+      <p className="text-lg leading-snug">
         I only listen to absolute bangers. Don&apos;t @ me.
       </p>
 
@@ -111,10 +111,10 @@ export const TopSongs = React.memo(function TopSongs() {
                   />
                 </div>
                 <div className="ml-3">
-                  <h5 className="text-[13.28px] font-bold leading-tight text-gray-900 dark:text-gray-100">
+                  <h5 className="text-[13.28px] font-bold leading-tight">
                     {song.title}
                   </h5>
-                  <p className="text-[12.8px] leading-tight text-gray-700 dark:text-gray-300">
+                  <p className="text-[12.8px] leading-tight">
                     by {song.artist}
                   </p>
                 </div>

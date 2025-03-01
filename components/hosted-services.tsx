@@ -87,7 +87,7 @@ export function HostedServices() {
 
   return (
     <section className="flex flex-col gap-2">
-      <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
+      <h3 className="text-lg font-semibold">
         hosted services
       </h3>
       <div className="-ml-1 grid grid-flow-row gap-2 md:grid-cols-2">
@@ -124,7 +124,7 @@ export function HostedServices() {
                 <h4 className="text-lg font-bold">{service.name}</h4>
               </div>
             </div>
-            <p className="z-auto text-gray-700 dark:text-gray-300">{service.description}</p>
+            <p className="z-auto">{service.description}</p>
             <p
               className="mt-2 font-mono text-sm"
               style={{

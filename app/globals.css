@@ -2,12 +2,21 @@
 
 @layer base {
   :root {
-    --radius: 0.5rem;
+    --background: 0 0% 100%; /* Light mode background (white) */
+    --foreground: 222.2 47.4% 11.2%; /* Dark gray text */
+
+    --card: 0 0% 100%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
   }
 
   .dark {
-    --tw-bg-opacity: 1;
-    --tw-text-opacity: 1;
+    --background: 0 0% 5%; /* Darker black */
+    --foreground: 210 40% 98%; /* Lighter gray text */
+
+    --card: 0 0% 8%; /* Darker card */
+    --border: 210 8% 15%; /* Darker border */
+    --input: 210 8% 15%; /* Darker input */
   }
 }
 

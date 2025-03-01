@@ -132,7 +132,7 @@ export function Memories() {
   return (
     <section className="flex flex-col gap-1 relative places-gallery">
       <div className="flex justify-between items-center">
-        <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
+        <h3 className="text-lg font-semibold">
           memories
         </h3>
         {/* Mobile-only sound toggle */}
@@ -160,7 +160,7 @@ export function Memories() {
           )}
         </button>
       </div>
-      <p className="text-lg leading-snug text-gray-700 dark:text-gray-300">
+      <p className="text-lg leading-snug">
         Life&apos;s too short for bad lighting… or bad vibes.
       </p>
       <div className="relative">

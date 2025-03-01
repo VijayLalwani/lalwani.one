@@ -86,11 +86,11 @@ export function Bookshelf() {
   return (
     <section className="space-y-4">
       <div className="flex flex-col gap-1">
-        <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
+        <h3 className="text-lg font-semibold">
           bookshelf
         </h3>
-        <p className="text-lg leading-snug text-gray-700 dark:text-gray-300">
-          The books that once had me completely hooked.
+        <p className="text-lg leading-snug">
+          The books that once had me hooked.
         </p>
       </div>
       <div className="not-prose">

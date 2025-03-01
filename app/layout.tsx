@@ -23,12 +23,14 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className={`${karla.className} antialiased transition-colors duration-300`}>
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem={true}>
-          <div className="min-h-screen bg-gray-100 dark:bg-black/50 p-4 md:py-12 md:px-8 lg:px-12 flex flex-col">
+    <html lang="en" suppressHydrationWarning className={karla.className}>
+      <body className="antialiased transition-colors duration-300">
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+          <div className="min-h-screen p-4 md:py-12 md:px-8 lg:px-12 flex flex-col bg-gray-200 dark:bg-gray-800">
             <Navigation />
-            <main className="max-w-3xl w-full mx-auto space-y-6">{children}</main>
+            <main className="max-w-3xl w-full mx-auto space-y-6">
+              {children}
+            </main>
           </div>
         </ThemeProvider>
       </body>
