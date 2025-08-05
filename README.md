@@ -25,7 +25,6 @@
 - From blog/photos to resume links is appended instead of absolute
 - resume should serve from /resume
 - Add now listening
-- improve image loading for slow connections
 
 
 ## Content Additions
@@ -39,6 +38,16 @@
 - Blog post automation
 - Service statistics tracking
 - Photo gallery integration from Immich
+- songs from navidrome
 
+
+## Performance Imporvements
+- ~~reduce image size~~
+- ~~reduce video size~~
+- optimise images by making the app dynamic
+- optimise fonts
+- optimise videos (HLS)
+- optimise js (@next/bundle-analyzer)
+- other tips: https://docs.google.com/document/d/e/2PACX-1vTKF4IRw41OvCsfdbL6fA_7BzZvC7DaiapCGATwiXuL0YHgwOX9QzfA2mkCW09z9WF8OIgHUo21UcLF/pub
 ---
 

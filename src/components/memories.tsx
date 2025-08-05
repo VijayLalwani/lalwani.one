@@ -100,6 +100,7 @@ const MediaItem = memo(
         alt={item.alt}
         width={112} // 28 * 4
         height={112}
+        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         className="w-full h-full object-cover transition-transform duration-300 ease-out hover:scale-110"
         placeholder="blur"
         quality={75}
