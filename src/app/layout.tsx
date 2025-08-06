@@ -21,6 +21,9 @@ const departureMono = localFont({
 export const metadata: Metadata = {
   title: "Vijay Lalwani",
   description: "Welcome to my part of internet",
+    other: {
+    "google-fonts-preconnect": "https://fonts.gstatic.com"
+  },
   icons: {
     icon: [
       { url: "/dark.png", media: "(prefers-color-scheme: dark)" },
