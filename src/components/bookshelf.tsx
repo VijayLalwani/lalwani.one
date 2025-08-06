@@ -187,7 +187,7 @@ export function Bookshelf() {
     className="h-full w-[97px] sm:w-[116px] md:w-[135px] lg:w-[154px] bg-cover"
     placeholder="blur"
     sizes="(max-width: 640px) 97px, (max-width: 768px) 116px, (max-width: 1024px) 135px, 154px"
-    // priority={book.id === 1}
+    loading="lazy"
   />
 </div>
 
