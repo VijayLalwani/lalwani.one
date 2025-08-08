@@ -1,9 +1,8 @@
 import type { Metadata } from "next"
-import { Karla } from "next/font/google"
+import { Karla, Sixtyfour, Source_Code_Pro } from "next/font/google";
 import "./globals.css"
 import { ThemeProvider } from "next-themes"
 import { Navigation } from "@/components/navigation"
-import localFont from 'next/font/local';
 
 const karla = Karla({
   subsets: ["latin"],
@@ -11,19 +10,24 @@ const karla = Karla({
   variable: '--font-karla',
 });
 
-const departureMono = localFont({
-  src: './fonts/DepartureMono-Regular.woff2',
-  display: 'swap',
-  variable: '--font-departure-mono',
+const sixtyfour = Sixtyfour({
+  subsets: ["latin"],
+  weight: "400",
+  display: "swap",
+  variable: "--font-sixtyfour-mono",
+});
+
+const sourceCodePro = Source_Code_Pro({
+  subsets: ["latin"],
+  weight: "400", 
+  display: "swap",
+  variable: "--font-source-code-mono",
 });
 
 
 export const metadata: Metadata = {
   title: "Vijay Lalwani",
   description: "Welcome to my part of internet",
-    other: {
-    "google-fonts-preconnect": "https://fonts.gstatic.com"
-  },
   icons: {
     icon: [
       { url: "/dark.png", media: "(prefers-color-scheme: dark)" },
@@ -38,7 +42,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" suppressHydrationWarning className={`${karla.variable} ${departureMono.variable}`}>
+    <html lang="en" suppressHydrationWarning className={`${karla.variable}  ${sixtyfour.variable} ${sourceCodePro.variable}`}>
       <body className="antialiased transition-colors duration-300">
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
           <div className="min-h-screen p-4 md:py-12 md:px-8 lg:px-12 flex flex-col">

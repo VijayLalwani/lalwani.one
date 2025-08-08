@@ -42,7 +42,7 @@ export function Stats() {
 
   return (
     <div
-      className={`flex select-none flex-col gap-1 font-mono`}
+      className={`flex select-none flex-col gap-1 font-spmono`}
     >
       <h3 className="text-sm font-semibold">
         ░ STATS

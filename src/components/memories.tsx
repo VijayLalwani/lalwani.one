@@ -98,8 +98,7 @@ const MediaItem = memo(
       <Image
         src={item.src}
         alt={item.alt}
-        width={112} // 28 * 4
-        height={112}
+        fill
         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         className="w-full h-full object-cover transition-transform duration-300 ease-out hover:scale-110"
         placeholder="blur"
@@ -228,7 +227,7 @@ export function Memories() {
                 }}
               >
                 <div
-                  className="h-32 w-32 rounded-lg border-[3px] border-white shadow-md transform-gpu overflow-hidden"
+                  className="h-32 w-32 rounded-lg border-[3px] border-white shadow-md transform-gpu overflow-hidden relative"
                   style={{
                     transform: "none",
                     transformOrigin: "center center",

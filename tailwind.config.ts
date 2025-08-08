@@ -11,7 +11,8 @@ const config: Config = {
     extend: {
       fontFamily: {
         sans: ["var(--font-karla)"],
-        mono: ["var(--font-departure-mono)"],
+        mono: ["var(--font-source-code-mono)"],
+        spmono: ["var(--font-sixtyfour-mono)"],
       },
       colors: {
         background: "hsl(var(--background))",
