@@ -1,6 +1,7 @@
 "use client";
-import { useState, useCallback, memo, useSyncExternalStore } from "react";
-import Image from "next/image"; // For optimized image loading
+import { useState, useCallback, useEffect, useRef, memo, useSyncExternalStore } from "react";
+import Image from "next/image";
+import { Volume2, VolumeOff } from "lucide-react";
 
 // Image Imports
 import holiImage from "@/assets/images/memories/holi.jpg";
@@ -113,6 +114,10 @@ export function Memories() {
   const [isSoundEnabled, setIsSoundEnabled] = useState(false);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  const [offset, setOffset] = useState({ x: 0, y: 0 });
+  const anchorRef = useRef<{ x: number; y: number } | null>(null);
+  const activeVideoRef = useRef<HTMLVideoElement | null>(null);
+  const MAX_DRIFT = 40; // max pixels the image can drift from anchor
 
   const getScaleValue = useCallback(() => {
     if (typeof window === "undefined") return 2;
@@ -120,15 +125,65 @@ export function Memories() {
   }, []);
 
   // Unified mouse/touch handlers
-  const handlePressStart = useCallback((i: number) => {
+  const handlePressStart = useCallback((i: number, clientX: number, clientY: number, container: HTMLElement) => {
+    anchorRef.current = { x: clientX, y: clientY };
+    setOffset({ x: 0, y: 0 });
     setActiveIndex(i);
-    document.documentElement.style.overflow = "hidden"; // Prevent scroll
+    document.documentElement.style.overflow = "hidden";
+    // If this item has a video, play it
+    const video = container.querySelector("video");
+    if (video) {
+      activeVideoRef.current = video;
+      video.play();
+    }
   }, []);
 
   const handlePressEnd = useCallback(() => {
+    // Pause and reset the active video
+    if (activeVideoRef.current) {
+      activeVideoRef.current.pause();
+      activeVideoRef.current.currentTime = 0;
+      activeVideoRef.current = null;
+    }
     setActiveIndex(null);
-    document.documentElement.style.overflow = ""; // Restore scroll
+    setOffset({ x: 0, y: 0 });
+    anchorRef.current = null;
+    document.documentElement.style.overflow = "";
   }, []);
+
+  // Global mousemove/mouseup/touchmove/touchend so release works even outside the element
+  useEffect(() => {
+    if (activeIndex === null) return;
+
+    const handleMove = (clientX: number, clientY: number) => {
+      if (!anchorRef.current) return;
+      const dx = clientX - anchorRef.current.x;
+      const dy = clientY - anchorRef.current.y;
+      // Elastic: the further you go, the harder it pulls back
+      const clamp = (v: number) => (MAX_DRIFT * Math.tanh(v / MAX_DRIFT));
+      setOffset({ x: clamp(dx), y: clamp(dy) });
+    };
+
+    const onMouseMove = (e: MouseEvent) => handleMove(e.clientX, e.clientY);
+    const onTouchMove = (e: TouchEvent) => {
+      if (e.touches[0]) handleMove(e.touches[0].clientX, e.touches[0].clientY);
+    };
+    const onEnd = () => handlePressEnd();
+
+    window.addEventListener("mousemove", onMouseMove);
+    window.addEventListener("mouseup", onEnd);
+    window.addEventListener("touchmove", onTouchMove, { passive: true });
+    window.addEventListener("touchend", onEnd);
+    window.addEventListener("touchcancel", onEnd);
+
+    return () => {
+      window.removeEventListener("mousemove", onMouseMove);
+      window.removeEventListener("mouseup", onEnd);
+      window.removeEventListener("touchmove", onTouchMove);
+      window.removeEventListener("touchend", onEnd);
+      window.removeEventListener("touchcancel", onEnd);
+    };
+  }, [activeIndex, handlePressEnd]);
 
   // Memoize video handlers
   const handleVideoPlay = useCallback(
@@ -159,21 +214,9 @@ export function Memories() {
           aria-label={isSoundEnabled ? "Mute sound" : "Unmute sound"}
         >
           {isSoundEnabled ? (
-            <svg
-              className="w-5 h-5 text-white"
-              fill="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path d="M14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77zm-4 0L8 4.65l-3-3L3.27 3.5 5.73 6 3 8.73l1.27 1.27L7 7.27l3 3V3.23z" />
-            </svg>
+            <Volume2 className="w-5 h-5" />
           ) : (
-            <svg
-              className="w-5 h-5 text-white"
-              fill="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z" />
-            </svg>
+            <VolumeOff className="w-5 h-5" />
           )}
         </button>
       </div>
@@ -194,13 +237,14 @@ export function Memories() {
                 onContextMenu={(e) => e.preventDefault()}
                 onMouseEnter={() => setHoveredIndex(i)}
                 onMouseLeave={() => setHoveredIndex(null)}
-                onTouchStart={() => handlePressStart(i)}
-                onTouchEnd={handlePressEnd}
-                onTouchCancel={handlePressEnd}
-                onMouseDown={() => handlePressStart(i)}
-                onMouseUp={handlePressEnd}
+                onTouchStart={(e) => {
+                  const t = e.touches[0];
+                  if (t) handlePressStart(i, t.clientX, t.clientY, e.currentTarget);
+                }}
+                onMouseDown={(e) => handlePressStart(i, e.clientX, e.clientY, e.currentTarget)}
                 style={{
                   transform: `
+                    translate(${isActive ? offset.x : 0}px, ${isActive ? offset.y : 0}px)
                     rotate(${
                       activeIndex === i || hoveredIndex === i
                         ? 0
@@ -216,8 +260,8 @@ export function Memories() {
                   `,
                   transition:
                     activeIndex === i
-                      ? "transform 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28)"
-                      : "transform 0.3s ease-out",
+                      ? "transform 0.15s ease-out"
+                      : "transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)",
                   zIndex:
                     activeIndex === i || hoveredIndex === i ? 999999 : "auto",
                   overflow: "visible",

@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useState, useRef, useCallback } from "react";
 import Image, { StaticImageData } from "next/image";
 
 import paradoxCover from "@/assets/images/books/paradox.jpg";
@@ -91,6 +91,22 @@ const books: Book[] = [
 
 export function Bookshelf() {
   const [hoveredBook, setHoveredBook] = useState<number | null>(null);
+  const leaveTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const handleMouseEnter = useCallback((id: number) => {
+    if (leaveTimer.current) {
+      clearTimeout(leaveTimer.current);
+      leaveTimer.current = null;
+    }
+    setHoveredBook(id);
+  }, []);
+
+  const handleMouseLeave = useCallback(() => {
+    leaveTimer.current = setTimeout(() => {
+      setHoveredBook(null);
+      leaveTimer.current = null;
+    }, 80);
+  }, []);
 
   return (
     <section className="space-y-4">
@@ -106,49 +122,87 @@ export function Bookshelf() {
         <div className="max-w-4xl mx-auto overflow-visible">
           <div role="list" className="flex justify-center w-full">
             <div className="flex flex-wrap justify-center gap-2">
-              {books.map((book, index) => (
+              {books.map((book, index) => {
+                const isHovered = hoveredBook === book.id;
+                return (
                 <motion.button
                   key={book.id}
                   role="listitem"
                   className={`
-                    flex flex-row items-center outline-none transition-all duration-300 ease-in-out 
+                    flex flex-row items-center outline-none
                     focus-visible:-translate-y-2 ${index === 0 ? "" : "-ml-12 sm:-ml-16 md:-ml-24 lg:-ml-30"}
                   `}
                   style={{
                     perspective: "1000px",
                     WebkitPerspective: "1000px",
-                    zIndex: hoveredBook === book.id ? 40 : index + 1,
+                    zIndex: isHovered ? 40 : index + 1,
+                    transformStyle: "preserve-3d",
+                    pointerEvents: hoveredBook !== null && !isHovered ? "none" : "auto",
                   }}
-                  onMouseEnter={() => setHoveredBook(book.id)}
-                  onMouseLeave={() => setHoveredBook(null)}
+                  onMouseEnter={() => handleMouseEnter(book.id)}
+                  onMouseLeave={handleMouseLeave}
                   onTouchStart={(e) => {
-                    e.preventDefault(); // Prevent long-press context menu
-                    setHoveredBook(book.id);
+                    e.preventDefault();
+                    handleMouseEnter(book.id);
                   }}
-                  onTouchEnd={() => setHoveredBook(null)}
-                  onContextMenu={(e) => e.preventDefault()} // Disable right-click context menu
-                  whileHover={{
-                    translateZ: 20,
-                    translateY: -10,
-                    transition: { duration: 0.2, ease: "easeInOut" },
-                  }}
+                  onTouchEnd={handleMouseLeave}
+                  onContextMenu={(e) => e.preventDefault()}
                   animate={
-                    hoveredBook === book.id
-                      ? { translateZ: 20, translateY: -10 }
-                      : {}
+                    isHovered
+                      ? {
+                          y: -18,
+                          rotateX: -4,
+                          scale: 1.08,
+                          transition: {
+                            type: "spring",
+                            stiffness: 200,
+                            damping: 18,
+                            mass: 0.8,
+                          },
+                        }
+                      : {
+                          y: 0,
+                          rotateX: 0,
+                          scale: 1,
+                          transition: {
+                            type: "spring",
+                            stiffness: 300,
+                            damping: 22,
+                            mass: 0.6,
+                          },
+                        }
                   }
                 >
 {/* Spine */}
-<div
-  className="z-50 h-32 sm:h-40 md:h-48 lg:h-56 w-[20px] sm:w-[24px] md:w-[28px] lg:w-[32px] shrink-0 origin-right py-2 brightness-[0.95] relative"
+<motion.div
+  className="z-50 h-32 sm:h-40 md:h-48 lg:h-56 w-[20px] sm:w-[24px] md:w-[28px] lg:w-[32px] shrink-0 origin-right py-2 relative"
   style={{
     backgroundColor: book.spineColor,
     color: book.textColor,
     transformStyle: "preserve-3d",
-    transform: "rotateY(-60deg) translateZ(0px)",
   }}
+  animate={
+    isHovered
+      ? {
+          rotateY: -40,
+          transition: {
+            type: "spring",
+            stiffness: 150,
+            damping: 20,
+            mass: 0.8,
+          },
+        }
+      : {
+          rotateY: -55,
+          transition: {
+            type: "spring",
+            stiffness: 250,
+            damping: 24,
+            mass: 0.6,
+          },
+        }
+  }
 >
-  {/* Shadow and reflection effects on the spine */}
   <span
     aria-hidden="true"
     className="absolute inset-0 bg-gradient-to-r from-black/30 via-transparent to-black/10"
@@ -159,17 +213,39 @@ export function Bookshelf() {
   >
     {book.title}
   </h2>
-</div>
+</motion.div>
 
 {/* Cover */}
-<div
-  className="relative z-10 h-32 sm:h-40 md:h-48 lg:h-56 shrink-0 origin-left overflow-hidden border-gray-900 brightness-[0.95]"
+<motion.div
+  className="relative z-10 h-32 sm:h-40 md:h-48 lg:h-56 shrink-0 origin-left overflow-hidden border-gray-900"
   style={{
     transformStyle: "preserve-3d",
-    transform: "rotateY(10deg) translateZ(0px)",
+    backfaceVisibility: "hidden",
   }}
+  animate={
+    isHovered
+      ? {
+          rotateY: 18,
+          filter: "brightness(1.02)",
+          transition: {
+            type: "spring",
+            stiffness: 150,
+            damping: 20,
+            mass: 0.8,
+          },
+        }
+      : {
+          rotateY: 2,
+          filter: "brightness(0.85)",
+          transition: {
+            type: "spring",
+            stiffness: 250,
+            damping: 24,
+            mass: 0.6,
+          },
+        }
+  }
 >
-  {/* Gradient highlight to create realistic transition between spine and cover */}
   <span
     aria-hidden="true"
     className="absolute left-0 top-0 z-50 h-full w-full"
@@ -187,10 +263,11 @@ export function Bookshelf() {
     sizes="(max-width: 640px) 97px, (max-width: 768px) 116px, (max-width: 1024px) 135px, 154px"
     loading="lazy"
   />
-</div>
+</motion.div>
 
                 </motion.button>
-              ))}
+                );
+              })}
             </div>
           </div>
         </div>
