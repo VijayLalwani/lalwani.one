@@ -1,5 +1,5 @@
 "use client";
-import { useState, useCallback, memo, useEffect } from "react";
+import { useState, useCallback, memo, useSyncExternalStore } from "react";
 import Image from "next/image"; // For optimized image loading
 
 // Image Imports
@@ -69,11 +69,11 @@ const MediaItem = memo(
     onPause?: (e: React.SyntheticEvent<HTMLVideoElement>) => void;
     isSoundEnabled: boolean;
   }) => {
-    const [isDesktop, setIsDesktop] = useState(false);
-
-    useEffect(() => {
-      setIsDesktop(window.matchMedia("(pointer: fine)").matches);
-    }, []);
+    const isDesktop = useSyncExternalStore(
+      () => () => {},
+      () => window.matchMedia("(pointer: fine)").matches,
+      () => false
+    );
 
     if (item.type === "video") {
       return (

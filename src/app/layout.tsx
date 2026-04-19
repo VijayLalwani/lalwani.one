@@ -43,7 +43,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning className={`${karla.variable}  ${sixtyfour.variable} ${sourceCodePro.variable}`}>
-      <body className="antialiased transition-colors duration-300">
+      <body className="antialiased transition-colors duration-300 bg-white text-gray-900 dark:bg-black dark:text-white">
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
           <div className="min-h-screen p-4 md:py-12 md:px-8 lg:px-12 flex flex-col">
             <Navigation />

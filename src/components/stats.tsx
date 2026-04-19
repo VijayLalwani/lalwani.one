@@ -2,44 +2,44 @@
 
 import React, { Fragment } from "react";
 
-export function Stats() {
-  const statsConfig = [
-    {
-      label: "crypto profits",
-      value: "2 pizzas",
-      hoverContent: ["1 large", "1 medium", "Thanks, BTC!"],
-      color: "text-blue-500",
-    },
-    {
-      label: "trading profits",
-      value: "pepperoni",
-      hoverContent: ["To go with my pizza obviously"],
-      color: "text-blue-500",
-    },
-    {
-      label: "typing speed",
-      value: "150.38 wpm",
-      hoverContent: ["Outran autocorrect", "Keyboard crying"],
-      color: "text-green-500",
-    },
-    {
-      label: "keyboard",
-      value: "EPOMAKER Galaxy80",
-      color: "text-purple-500",
-    },
-    {
-      label: "mouse",
-      value: "Logitech G305 ",
-      color: "text-purple-500",
-    },
-    {
-      label: "wishlist",
-      value: "stuff",
-      hoverContent: ["Mustang Shelby GT 500", "Jensen Huangs Leather Jacket"],
-      color: "text-red-500",
-    },
-  ];
+const statsConfig = [
+  {
+    label: "crypto profits",
+    value: "2 pizzas",
+    hoverContent: ["1 large", "1 medium", "Thanks, BTC!"],
+    color: "text-blue-500",
+  },
+  {
+    label: "trading profits",
+    value: "pepperoni",
+    hoverContent: ["To go with my pizza obviously"],
+    color: "text-blue-500",
+  },
+  {
+    label: "typing speed",
+    value: "150.38 wpm",
+    hoverContent: ["Outran autocorrect", "Keyboard crying"],
+    color: "text-green-500",
+  },
+  {
+    label: "keyboard",
+    value: "EPOMAKER Galaxy80",
+    color: "text-purple-500",
+  },
+  {
+    label: "mouse",
+    value: "Logitech G305",
+    color: "text-purple-500",
+  },
+  {
+    label: "wishlist",
+    value: "stuff",
+    hoverContent: ["Mustang Shelby GT 500", "Jensen Huangs Leather Jacket"],
+    color: "text-red-500",
+  },
+];
 
+export function Stats() {
   return (
     <div
       className={`flex select-none flex-col gap-1 font-spmono`}

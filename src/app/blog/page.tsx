@@ -17,34 +17,6 @@ const posts: readonly BlogPost[] = [
     description: "A comprehensive guide to using GitHub effectively.",
     tags: ["GitHub", "Version Control"],
   },
-  {
-    title: "The Future of AI in Web Development",
-    date: "Monday, June 3, 2024",
-    slug: "ai-in-web-development",
-    description: "Exploring the impact of AI on web development.",
-    tags: ["AI", "Web Development"],
-  },
-  {
-    title: "Optimizing React Performance: Advanced Techniques",
-    date: "Friday, June 7, 2024",
-    slug: "react-performance-optimization",
-    description: "Advanced techniques to optimize React performance.",
-    tags: ["React", "Performance Optimization"],
-  },
-  {
-    title: "Exploring the New Features in TypeScript 5.0",
-    date: "Tuesday, June 11, 2024",
-    slug: "typescript-5-features",
-    description: "What's new in TypeScript 5.0 and how it can benefit your projects.",
-    tags: ["TypeScript", "JavaScript"],
-  },
-  {
-    title: "Building Accessible Web Applications: Best Practices",
-    date: "Saturday, June 15, 2024",
-    slug: "web-accessibility-best-practices",
-    description: "Best practices for building accessible web applications.",
-    tags: ["Accessibility", "Web Development"],
-  },
 ] as const
 
 const BlogPost = memo(({ post }: { post: BlogPost }) => (

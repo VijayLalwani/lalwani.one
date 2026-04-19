@@ -1,24 +1,5 @@
 @import "tailwindcss";
-
-@layer base {
-  :root {
-    --background: 0 0% 100%; /* Light mode background (white) */
-    --foreground: 222.2 47.4% 11.2%; /* Dark gray text */
-
-    --card: 0 0% 100%;
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-  }
-
-  .dark {
-    --background: 0 0% 5%; /* Darker black */
-    --foreground: 210 40% 98%; /* Lighter gray text */
-
-    --card: 0 0% 8%; /* Darker card */
-    --border: 210 8% 15%; /* Darker border */
-    --input: 210 8% 15%; /* Darker input */
-  }
-}
+@custom-variant dark (&:where(.dark, .dark *));
 
 @layer utilities {
   .perspective-1000 {
@@ -38,17 +19,4 @@
   }
 }
 
-@keyframes photoBlurIn {
-  0% {
-    -webkit-mask-image: linear-gradient(to right, black 0%, transparent 100%);
-    mask-image: linear-gradient(to right, black 0%, transparent 100%);
-  }
-  100% {
-    -webkit-mask-image: linear-gradient(to right, black 100%, transparent 200%);
-    mask-image: linear-gradient(to right, black 100%, transparent 200%);
-  }
-}
 
-.animate-photo-blur {
-  animation: photoBlurIn 6s cubic-bezier(.16,1,.3,1);
-}

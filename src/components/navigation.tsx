@@ -5,9 +5,23 @@ import { usePathname } from "next/navigation";
 import { Moon, Sun, Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useTheme } from "next-themes";
-import { useEffect, useState, useMemo } from "react";
+import { useCallback, useState, useMemo, useSyncExternalStore } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
+function playClickSound() {
+  const ctx = new AudioContext();
+  const oscillator = ctx.createOscillator();
+  const gain = ctx.createGain();
+  oscillator.connect(gain);
+  gain.connect(ctx.destination);
+  oscillator.type = "sine";
+  oscillator.frequency.setValueAtTime(1800, ctx.currentTime);
+  oscillator.frequency.exponentialRampToValueAtTime(1200, ctx.currentTime + 0.03);
+  gain.gain.setValueAtTime(0.15, ctx.currentTime);
+  gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.06);
+  oscillator.start(ctx.currentTime);
+  oscillator.stop(ctx.currentTime + 0.06);
+}
 
 interface NavLink {
   href: string;
@@ -24,11 +38,15 @@ const NAVIGATION_LINKS: NavLink[] = [
 export function Navigation() {
   const pathname = usePathname();
   const { theme, setTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
+  const mounted = useSyncExternalStore(
+    () => () => {},
+    () => true,
+    () => false
+  );
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  useEffect(() => {
-    setMounted(true);
+  const handleNavClick = useCallback(() => {
+    playClickSound();
   }, []);
 
   const currentBlogPost = useMemo(() => {
@@ -45,7 +63,7 @@ export function Navigation() {
       <div className="flex flex-row items-center gap-2">
         <div className="flex flex-col items-start">
           <Link href="/">
-            <h1 className="text-2xl font-bold tracking-tighter text-mauve-50 dark:text-evuam-50">
+            <h1 className="text-2xl font-bold tracking-tighter text-gray-900 dark:text-white">
               Vijay Lalwani
             </h1>
           </Link>
@@ -131,7 +149,7 @@ export function Navigation() {
                           ? "text-white bg-black/80 dark:bg-white/10 dark:text-white"
                           : "text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-white/5"
                       )}
-                      onClick={() => setIsMenuOpen(false)}
+                      onClick={() => { handleNavClick(); setIsMenuOpen(false); }}
                     >
                       {link.label}
                     </Link>
@@ -159,6 +177,7 @@ export function Navigation() {
                 ? "text-white dark:text-white"
                 : "hover:text-gray-900 dark:hover:text-white"
             )}
+            onClick={handleNavClick}
             aria-current={
               pathname === link.href ||
               (pathname.startsWith("/blog/") && link.href === "/blog") ||
