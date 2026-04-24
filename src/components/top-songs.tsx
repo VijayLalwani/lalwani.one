@@ -74,7 +74,7 @@ export const TopSongs = React.memo(function TopSongs() {
   );
 
   return (
-    <section className="flex flex-col gap-1">
+    <section className="flex flex-col gap-3">
       <h3 className="text-lg font-semibold">
         top songs
       </h3>

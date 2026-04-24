@@ -16,8 +16,8 @@ const SERVICES = [
     href: "https://photos.lalwani.one",
     description: "Personal Google Photos alternative.",
     icon: photosIcon,
-    background: "#895CE311",
-    border: "1px solid #895CE322",
+    background: "#895CE30a",
+    border: "1px solid #895CE318",
     color: "#895CE3",
     metric: "photos:count videos:count",
   },
@@ -26,8 +26,8 @@ const SERVICES = [
     href: "https://music.lalwani.one",
     description: "16 bit 44000 Hz FLAC music streaming.",
     icon: musicIcon,
-    background: "#0b94fd11",
-    border: "1px solid #0b94fd22",
+    background: "#0b94fd0a",
+    border: "1px solid #0b94fd18",
     color: "#0b94fd",
     metric: "Songs:count",
   },
@@ -36,8 +36,8 @@ const SERVICES = [
     href: "https://files.lalwani.one",
     description: "Cloud storage with WebDAV and SFTP support.",
     icon: filesIcon,
-    background: "#F7744411",
-    border: "1px solid #F7744422",
+    background: "#F774440a",
+    border: "1px solid #F7744418",
     color: "#F77444",
     metric: "Used:in GB",
   },
@@ -46,8 +46,8 @@ const SERVICES = [
     href: "https://docs.lalwani.one",
     description: "Document storage with OCR and AI tagging.",
     icon: documentsIcon,
-    background: "#e8ab4811",
-    border: "1px solid #e8ab4822",
+    background: "#e8ab480a",
+    border: "1px solid #e8ab4818",
     color: "#e8ab48",
     metric: "Documents:count",
   },
@@ -56,8 +56,8 @@ const SERVICES = [
     href: "https://mail.lalwani.one/SOGo/",
     description: "Email, Calendar and Contacts.",
     icon: mailIcon,
-    background: "#E5393511",
-    border: "1px solid #E5393522",
+    background: "#E539350a",
+    border: "1px solid #E5393518",
     color: "#E53935",
     metric: "Mailboxes:count",
   },
@@ -66,8 +66,8 @@ const SERVICES = [
     href: "https://chat.lalwani.one",
     description: "All hosted AI models and API's",
     icon: chatIcon,
-    background: "#EC407A11",
-    border: "1px solid #EC407A22",
+    background: "#EC407A0a",
+    border: "1px solid #EC407A18",
     color: "#EC407A",
     metric: "AI Models:count",
   },
@@ -119,29 +119,25 @@ export function HostedServices() {
                 opacity: 0,
               }}
             />
-            <div className="flex flex-row gap-1.5 items-center pb-1">
-              <Image
-                src={service.icon}
-                alt={service.name}
-                width={25}
-                height={25}
-                className="z-auto rounded-full shadow-lg"
-              />
-              <div className="z-auto flex justify-between">
-                <h4 className="text-lg font-bold">{service.name}</h4>
+            <div className="flex flex-row items-center justify-between pb-1">
+              <div className="flex flex-row gap-1.5 items-center">
+                <Image
+                  src={service.icon}
+                  alt={service.name}
+                  width={25}
+                  height={25}
+                  className="z-auto rounded-full shadow-lg"
+                />
+                <h4 className="z-auto text-lg font-medium">{service.name}</h4>
               </div>
+              <p
+                className="z-auto font-mono text-xs opacity-60"
+                style={{ color: service.color }}
+              >
+                {service.metric}
+              </p>
             </div>
             <p className="z-auto">{service.description}</p>
-            <p
-              className="mt-2 font-mono text-sm"
-              style={{
-                '--color-light': `${service.color}ff`,
-                '--color-dark': `${service.color}55`,
-                color: 'var(--color-light)',
-              } as React.CSSProperties}
-            >
-              {service.metric}
-            </p>
           </a>
         ))}
       </div>

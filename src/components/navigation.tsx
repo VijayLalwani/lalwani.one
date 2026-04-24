@@ -5,11 +5,13 @@ import { usePathname } from "next/navigation";
 import { Moon, Sun, Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useTheme } from "next-themes";
-import { useCallback, useState, useMemo, useSyncExternalStore } from "react";
+import { useCallback, useState, useMemo, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
+let audioCtx: AudioContext | null = null;
 function playClickSound() {
-  const ctx = new AudioContext();
+  if (!audioCtx) audioCtx = new AudioContext();
+  const ctx = audioCtx;
   const oscillator = ctx.createOscillator();
   const gain = ctx.createGain();
   oscillator.connect(gain);
@@ -38,12 +40,10 @@ const NAVIGATION_LINKS: NavLink[] = [
 export function Navigation() {
   const pathname = usePathname();
   const { theme, setTheme } = useTheme();
-  const mounted = useSyncExternalStore(
-    () => () => {},
-    () => true,
-    () => false
-  );
+  const [mounted, setMounted] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  useEffect(() => { setMounted(true); }, []);
 
   const handleNavClick = useCallback(() => {
     playClickSound();

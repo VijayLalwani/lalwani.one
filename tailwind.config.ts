@@ -10,8 +10,8 @@ const config: Config = {
     extend: {
       fontFamily: {
         sans: ["var(--font-karla)"],
-        mono: ["var(--font-source-code-mono)"],
-        spmono: ["var(--font-sixtyfour-mono)"],
+        mono: ["var(--font-geist-mono)"],
+        spmono: ["var(--font-departure-mono)"],
       },
     },
   },
