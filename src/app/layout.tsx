@@ -2,8 +2,10 @@ import type { Metadata } from "next"
 import { Karla, Geist_Mono } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css"
+import Link from "next/link"
 import { ThemeProvider } from "next-themes"
-import { Navigation } from "@/components/navigation"
+import { BottomNav } from "@/components/bottom-nav"
+import { WelcomePopup } from "@/components/welcome-popup"
 
 const karla = Karla({
   subsets: ["latin"],
@@ -44,12 +46,18 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning className={`${karla.variable} ${geistMono.variable} ${departureMono.variable}`}>
       <body className="antialiased bg-white text-gray-900 dark:bg-black dark:text-white">
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-          <div className="min-h-screen p-4 md:py-12 md:px-8 lg:px-12 flex flex-col">
-            <Navigation />
+          <WelcomePopup />
+          <div className="min-h-screen p-4 pb-24 md:py-12 md:px-8 md:pb-24 lg:px-12 flex flex-col">
+            <Link href="/">
+              <h1 className="text-2xl font-bold tracking-tighter text-gray-900 dark:text-white">
+                Vijay Lalwani
+              </h1>
+            </Link>
             <main className="max-w-3xl w-full mx-auto space-y-6">
               {children}
             </main>
           </div>
+          <BottomNav />
         </ThemeProvider>
       </body>
     </html>
