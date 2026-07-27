@@ -7,6 +7,7 @@ import Link from "next/link"
 import { ThemeProvider } from "next-themes"
 import { BottomNav } from "@/components/bottom-nav"
 import { WelcomePopup } from "@/components/welcome-popup"
+import { PageTransition } from "@/components/page-transition"
 
 const karla = Karla({
   subsets: ["latin"],
@@ -57,7 +58,9 @@ export default function RootLayout({
               </Link>
             </div>
             <main className="max-w-3xl w-full mx-auto space-y-6">
-              <ViewTransition>{children}</ViewTransition>
+              <ViewTransition>
+                <PageTransition>{children}</PageTransition>
+              </ViewTransition>
             </main>
           </div>
           <BottomNav />
