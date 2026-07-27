@@ -44,7 +44,7 @@ const ImageItem = memo(({ image, index }: { image: ImageType; index: number }) =
           height={image.height}
           loading={index < 4 ? "eager" : "lazy"}
           priority={index < 4}
-          className="opacity-0 group-data-[loaded=true]:opacity-100 group-data-[loaded=true]:animate-photo-blur"
+          className="transition-opacity duration-1000 ease-in-out opacity-0 group-data-[loaded=true]:opacity-100"
           onLoad={(event) => {
             (event.target as HTMLImageElement).dataset.loaded = "true"
           }}

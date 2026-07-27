@@ -8,60 +8,10 @@
 :root {
   --card-bg: rgba(255, 255, 255, 0.8);
   --card-border: rgba(0, 0, 0, 0.08);
-  /* The two exact near-white/near-black tones nisarg.com uses in place of
-     pure white/black (confirmed from its own shipped CSS, not guessed - a
-     subtle warm-tinted refinement, not a full color-scale port). */
-  --tone-bg: #ededef;
-  --tone-fg: #161618;
 }
 .dark {
   --card-bg: rgba(0, 0, 0, 0.8);
   --card-border: rgba(255, 255, 255, 0.1);
-  --tone-bg: #161618;
-  --tone-fg: #ededef;
-}
-
-/* nisarg.com's card-elevation shadow (exact values from its shipped CSS: an
-   inset ring + two soft drop-shadow layers), used by the Dock nav and
-   Projects cards via the shared --card-bg/--card-border tokens above. */
-.shadow-doing {
-  box-shadow: #f5f4f40d 0 0 0 1px inset, #0000000a 0 2px 8px, #0000000d 0 30px 70px;
-}
-
-/* nisarg.com's photo-gallery reveal (exact keyframe from its shipped CSS): a
-   mask-image wipe sweeping left as opacity rises, over 6s. See
-   src/app/photos/page.tsx. */
-@keyframes photoBlurIn {
-  0% {
-    mask: linear-gradient(90deg, #000 25%, rgba(0, 0, 0, 0.9) 50%, transparent) 150% 0 / 400% no-repeat;
-    -webkit-mask: linear-gradient(90deg, #000 25%, rgba(0, 0, 0, 0.9) 50%, transparent) 150% 0 / 400% no-repeat;
-    opacity: 0.2;
-  }
-  to {
-    mask: linear-gradient(90deg, #000 25%, rgba(0, 0, 0, 0.9) 50%, transparent) 0 / 400% no-repeat;
-    -webkit-mask: linear-gradient(90deg, #000 25%, rgba(0, 0, 0, 0.9) 50%, transparent) 0 / 400% no-repeat;
-    opacity: 1;
-  }
-}
-.animate-photo-blur {
-  animation: 6s cubic-bezier(0.16, 1, 0.3, 1) photoBlurIn;
-}
-
-/* nisarg.com's page-transition blur-in, as a plain CSS keyframe instead of
-   framer-motion (see src/components/page-transition.tsx) - one less thing
-   that needs a JS animation runtime. */
-@keyframes pageBlurIn {
-  from {
-    opacity: 0;
-    filter: blur(5px);
-  }
-  to {
-    opacity: 1;
-    filter: blur(0);
-  }
-}
-.animate-page-blur-in {
-  animation: pageBlurIn 0.5s ease-out both;
 }
 
 @layer utilities {

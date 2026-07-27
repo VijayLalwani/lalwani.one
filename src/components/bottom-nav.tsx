@@ -47,9 +47,9 @@ export function BottomNav() {
 
   return (
     <div className="pointer-events-none fixed inset-x-0 bottom-6 z-30 mx-auto flex h-full max-h-14 origin-bottom">
-      <div className="fixed inset-x-0 bottom-0 h-16 w-full bg-[var(--tone-bg)] to-transparent backdrop-blur-lg [-webkit-mask-image:linear-gradient(to_top,black,transparent)]" />
+      <div className="fixed inset-x-0 bottom-0 h-16 w-full bg-white to-transparent backdrop-blur-lg [-webkit-mask-image:linear-gradient(to_top,black,transparent)] dark:bg-black" />
 
-      <Dock className="pointer-events-auto relative z-50 gap-0.5 border border-[var(--card-border)] bg-[var(--card-bg)] px-1 shadow-doing sm:gap-1 md:gap-2">
+      <Dock className="pointer-events-auto relative z-50 gap-0.5 border border-[var(--card-border)] bg-[var(--card-bg)] px-1 shadow-lg sm:gap-1 md:gap-2">
         {NAV_ITEMS.map((item) => (
           <DockIcon key={item.href} className="hover:bg-gray-100 dark:hover:bg-white/10">
             <a
