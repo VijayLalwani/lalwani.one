@@ -46,7 +46,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning className={`${karla.variable} ${geistMono.variable} ${departureMono.variable}`}>
-      <body className="antialiased bg-white text-gray-900 dark:bg-black dark:text-white">
+      <body className="antialiased bg-[var(--tone-bg)] text-[var(--tone-fg)]">
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
           <WelcomePopup />
           <div className="min-h-screen p-4 pb-24 md:py-12 md:px-8 md:pb-24 lg:px-12 flex flex-col">
