@@ -6,9 +6,6 @@ import dynamic from "next/dynamic";
 const Projects = dynamic(() =>
   import("@/components/projects").then((mod) => mod.Projects)
 );
-const Homelab = dynamic(() =>
-  import("@/components/homelab").then((mod) => mod.Homelab)
-);
 const Memories = dynamic(() =>
   import("@/components/memories").then((mod) => mod.Memories)
 );
@@ -27,10 +24,6 @@ export default function Home() {
       
       <LazyLoad placeholderHeight="350px">
         <Projects />
-      </LazyLoad>
-
-      <LazyLoad placeholderHeight="500px">
-        <Homelab />
       </LazyLoad>
 
       <LazyLoad placeholderHeight="300px">

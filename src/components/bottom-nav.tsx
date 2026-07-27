@@ -1,9 +1,8 @@
 "use client";
 
-import { usePathname } from "next/navigation";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
-import { House, Server, Notebook, Image as ImageIcon, Sun, Moon } from "lucide-react";
+import { House, Notebook, Image as ImageIcon, Mail, Sun, Moon } from "lucide-react";
 import { Dock, DockIcon } from "@/components/dock";
 import { cn } from "@/lib/utils";
 
@@ -28,40 +27,23 @@ function LinkedinIcon({ className }: { className?: string }) {
   );
 }
 
-// Same shape as broomfieldhomelab.net's dock nav (Max Broomfield's site),
-// mapped to what actually exists here instead of forcing his pages
-// (projects/#contact) that this site doesn't have.
 const NAV_ITEMS = [
   { href: "/", label: "Home", icon: House },
-  { href: "#homelab", label: "Homelab", icon: Server },
   { href: "/blog", label: "Blog", icon: Notebook },
   { href: "/photos", label: "Photos", icon: ImageIcon },
+  { href: "/contact", label: "Contact", icon: Mail },
 ] as const;
 
-// TODO: replace with the real profile URL.
 const SOCIAL_LINKS = [
   { href: "https://github.com/VijayLalwani", label: "GitHub", icon: GithubIcon },
-  { href: "https://linkedin.com/in/TODO", label: "LinkedIn", icon: LinkedinIcon },
+  { href: "https://www.linkedin.com/in/lalwanivijay/", label: "LinkedIn", icon: LinkedinIcon },
 ] as const;
 
 export function BottomNav() {
-  const pathname = usePathname();
-  const { theme, setTheme } = useTheme();
+  const { resolvedTheme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => setMounted(true), []);
-
-  const handleNavClick = (e: React.MouseEvent, href: string) => {
-    if (!href.startsWith("#")) return;
-
-    if (pathname !== "/") {
-      // Let the browser navigate to "/#homelab" normally.
-      return;
-    }
-
-    e.preventDefault();
-    document.querySelector(href)?.scrollIntoView({ behavior: "smooth", block: "start" });
-  };
 
   return (
     <div className="pointer-events-none fixed inset-x-0 bottom-6 z-30 mx-auto flex h-full max-h-14 origin-bottom">
@@ -71,9 +53,8 @@ export function BottomNav() {
         {NAV_ITEMS.map((item) => (
           <DockIcon key={item.href} className="hover:bg-gray-100 dark:hover:bg-white/10">
             <a
-              href={item.href === "#homelab" && pathname !== "/" ? `/${item.href}` : item.href}
+              href={item.href}
               title={item.label}
-              onClick={(e) => handleNavClick(e, item.href)}
               className="flex h-full w-full items-center justify-center rounded-full"
             >
               <item.icon className="size-[18px]" strokeWidth={1.5} />
@@ -103,10 +84,10 @@ export function BottomNav() {
           <button
             type="button"
             title="Toggle theme"
-            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+            onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
             className={cn("flex h-full w-full items-center justify-center rounded-full")}
           >
-            {mounted && (theme === "dark" ? <Moon className="size-[18px]" /> : <Sun className="size-[18px]" />)}
+            {mounted && (resolvedTheme === "dark" ? <Moon className="size-[18px]" /> : <Sun className="size-[18px]" />)}
           </button>
         </DockIcon>
       </Dock>
