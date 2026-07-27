@@ -1,6 +1,7 @@
 import type { Metadata } from "next"
 import { Karla, Geist_Mono } from "next/font/google";
 import localFont from "next/font/local";
+import { ViewTransition } from "react";
 import "./globals.css"
 import Link from "next/link"
 import { ThemeProvider } from "next-themes"
@@ -56,7 +57,7 @@ export default function RootLayout({
               </Link>
             </div>
             <main className="max-w-3xl w-full mx-auto space-y-6">
-              {children}
+              <ViewTransition>{children}</ViewTransition>
             </main>
           </div>
           <BottomNav />

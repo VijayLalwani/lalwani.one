@@ -15,8 +15,8 @@
     "lucide-react": "^1.8.0",
     "next": "^16.2.4",
     "next-themes": "^0.4.6",
-    "react": "^19",
-    "react-dom": "^19",
+    "react": "19.3.0-canary-28cd4bb0-20260723",
+    "react-dom": "19.3.0-canary-28cd4bb0-20260723",
     "tailwind-merge": "^3.5.0"
   },
   "devDependencies": {
