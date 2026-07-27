@@ -97,22 +97,22 @@ export function DockIcon({
     return val - bounds.x - bounds.width / 2;
   });
 
-  // Scale (a transform), not literal width/height: those are layout
-  // properties, so animating them - driven continuously by mouse position -
-  // reflows every sibling icon on each frame, meaning the icon under your
-  // cursor can shift a few pixels as a NEIGHBOR grows/shrinks at the same
-  // time, right as you click it. `scale` is compositor-only: the box's
-  // actual layout footprint (what clicks hit-test against) never moves,
-  // only its paint size does - fixes clicks needing a second try (reported
-  // on desktop/mouse, never touch - consistent with this being a mouse-
-  // tracking reflow issue rather than anything device-specific).
-  const scaleTransform = useTransform(distanceCalc, [-distance, 0, distance], [1, magnification / size, 1]);
-  const scale = useSpring(scaleTransform, { mass: 0.1, stiffness: 150, damping: 12 });
+  // Animate width (aspect-square derives height) through the spring - same
+  // mechanism and constants as the reference (magicuidesign/magicui's Dock,
+  // github.com/MaxBroome/homepage's port of it). A previous attempt switched
+  // this to a `scale` transform to fix a click-reliability bug, but reused
+  // this same spring config on a value range 100x+ smaller (1-1.5 vs 40-60),
+  // making it react to every micro cursor jitter - that's what caused the
+  // "weirdly zooming" jank. The actual click bug is fixed in bottom-nav.tsx
+  // instead (a fixed-size hit target inside this animated wrapper), which is
+  // how the reference does it too.
+  const sizeTransform = useTransform(distanceCalc, [-distance, 0, distance], [size, magnification, size]);
+  const scaleSize = useSpring(sizeTransform, { mass: 0.1, stiffness: 150, damping: 12 });
 
   return (
     <motion.div
       ref={ref}
-      style={{ width: size, height: size, padding, scale }}
+      style={{ width: scaleSize, padding }}
       className={cn("flex aspect-square cursor-pointer items-center justify-center rounded-full", className)}
       {...props}
     >

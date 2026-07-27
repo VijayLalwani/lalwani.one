@@ -2,6 +2,18 @@
 @config "../../tailwind.config.ts";
 @custom-variant dark (&:where(.dark, .dark *));
 
+/* Shared "floating card" surface (Dock nav + Projects cards) so they render
+   as the same design language in both themes instead of each hand-picking
+   its own shade/opacity - see bottom-nav.tsx and projects.tsx. */
+:root {
+  --card-bg: rgba(255, 255, 255, 0.8);
+  --card-border: rgba(0, 0, 0, 0.08);
+}
+.dark {
+  --card-bg: rgba(0, 0, 0, 0.8);
+  --card-border: rgba(255, 255, 255, 0.1);
+}
+
 @layer utilities {
   .perspective-1000 {
     perspective: 1000px;

@@ -12,7 +12,7 @@ export function Projects() {
         {PROJECTS.map((project) => (
           <div
             key={project.name}
-            className="mx-auto w-[80vw] cursor-default overflow-hidden rounded-lg border border-black/5 px-4 py-4 shadow-md transition-all hover:border-black/10 hover:shadow-lg dark:border-white/5 dark:hover:border-white/10 dark:hover:shadow-white/10 md:w-full"
+            className="mx-auto w-[80vw] cursor-default overflow-hidden rounded-lg border border-[var(--card-border)] bg-[var(--card-bg)] px-4 py-4 shadow-md transition-shadow hover:shadow-lg md:w-full"
           >
             <h4 className="text-lg font-medium text-gray-500 dark:text-gray-400">{project.name}</h4>
             <p className="text-gray-400 dark:text-gray-500">{project.description}</p>

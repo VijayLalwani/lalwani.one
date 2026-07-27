@@ -49,13 +49,13 @@ export function BottomNav() {
     <div className="pointer-events-none fixed inset-x-0 bottom-6 z-30 mx-auto flex h-full max-h-14 origin-bottom">
       <div className="fixed inset-x-0 bottom-0 h-16 w-full bg-white to-transparent backdrop-blur-lg [-webkit-mask-image:linear-gradient(to_top,black,transparent)] dark:bg-black" />
 
-      <Dock className="pointer-events-auto relative z-50 gap-0.5 bg-white/80 px-1 shadow-[0_0_0_1px_rgba(0,0,0,.03),0_2px_4px_rgba(0,0,0,.05),0_12px_24px_rgba(0,0,0,.05)] dark:bg-black/80 dark:[border:1px_solid_rgba(255,255,255,.1)] dark:[box-shadow:0_-20px_80px_-20px_#ffffff1f_inset] sm:gap-1 md:gap-2">
+      <Dock className="pointer-events-auto relative z-50 gap-0.5 border border-[var(--card-border)] bg-[var(--card-bg)] px-1 shadow-lg sm:gap-1 md:gap-2">
         {NAV_ITEMS.map((item) => (
           <DockIcon key={item.href} className="hover:bg-gray-100 dark:hover:bg-white/10">
             <a
               href={item.href}
               title={item.label}
-              className="flex h-full w-full items-center justify-center rounded-full"
+              className="flex size-10 items-center justify-center rounded-full"
             >
               <item.icon className="size-[18px]" strokeWidth={1.5} />
             </a>
@@ -71,7 +71,7 @@ export function BottomNav() {
               title={social.label}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex h-full w-full items-center justify-center rounded-full"
+              className="flex size-10 items-center justify-center rounded-full"
             >
               <social.icon className="size-[18px]" />
             </a>
@@ -85,7 +85,7 @@ export function BottomNav() {
             type="button"
             title="Toggle theme"
             onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
-            className={cn("flex h-full w-full items-center justify-center rounded-full")}
+            className={cn("flex size-10 items-center justify-center rounded-full")}
           >
             {mounted && (resolvedTheme === "dark" ? <Moon className="size-[18px]" /> : <Sun className="size-[18px]" />)}
           </button>
