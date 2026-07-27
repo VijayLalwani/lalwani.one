@@ -48,11 +48,13 @@ export default function RootLayout({
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
           <WelcomePopup />
           <div className="min-h-screen p-4 pb-24 md:py-12 md:px-8 md:pb-24 lg:px-12 flex flex-col">
-            <Link href="/">
-              <h1 className="text-2xl font-bold tracking-tighter text-gray-900 dark:text-white">
-                Vijay Lalwani
-              </h1>
-            </Link>
+            <div className="max-w-3xl w-full mx-auto">
+              <Link href="/">
+                <h1 className="text-2xl font-bold tracking-tighter text-gray-900 dark:text-white">
+                  Vijay Lalwani
+                </h1>
+              </Link>
+            </div>
             <main className="max-w-3xl w-full mx-auto space-y-6">
               {children}
             </main>
