@@ -26,5 +26,22 @@
     "postcss": "^8.5.10",
     "tailwindcss": "^4.2.2",
     "typescript": "^6"
+  },
+  "overrides": {
+    "next": {
+      "react": "$react",
+      "react-dom": "$react-dom"
+    },
+    "framer-motion": {
+      "react": "$react",
+      "react-dom": "$react-dom"
+    },
+    "lucide-react": {
+      "react": "$react"
+    },
+    "next-themes": {
+      "react": "$react",
+      "react-dom": "$react-dom"
+    }
   }
 }
